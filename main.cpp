@@ -68,8 +68,6 @@ public:
       }
     }
     if (rank == 1) {
-      //   std::vector<long> local_matrix;
-      //   local_matrix.reserve(m_mn_matrix_size / 2);
       for (std::size_t y = 0; y < m_m; y += 2) {
         long cur_product = 0;
         for (std::size_t x = 0; x < m_n; x++) {
@@ -77,7 +75,6 @@ public:
 
           cur_product = cur_product + (at(cur_coordinate) * m_n1_matrix[x]);
         }
-        // local_matrix.push_back(cur_product);
         MPI_Send(&cur_product, 1, MPI_LONG, 0, 1, MPI_COMM_WORLD);
         std::cout << "from local matrix sending " << cur_product
                   << " from rank " << rank << '\n';
@@ -141,13 +138,8 @@ int main() {
   auto content_of_file = getFile("mv-data.txt");
 
   std::size_t m = getNumber(content_of_file);
-  //   std::cout << "m: " << m << '\n';
   std::size_t n = getNumber(content_of_file);
-  //   std::cout << "n: " << n << '\n';
-
   std::size_t mn_size = m * n;
-  //   std::cout << "mn_size: " << mn_size << '\n';
-
   std::vector<long> mn_matrix;
   std::vector<long> n1_matrix;
 
@@ -163,39 +155,4 @@ int main() {
   matrices.multiply_matrices(my_rank);
 
   MPI_Finalize();
-
-  // Coordinate ex_coord = {2, 0};
-  // std::cout << '\n' << matrices[ex_coord];
-
-  // for(auto i = 0; i < mn_size; i++) {
-  //     std::cout << mn_matrix[i];
-  // }
-  // std::cout << '\n';
-
-  // for(auto i = 0; i < n; i++) {
-  //     std::cout << n1_matrix[i] << '\n';
-  // }
-
-  // std::size_t m = getNumber(content_of_file);
-  // std::cout << "m: " << m << '\n';
-
-  // while (!content_of_file.eof()) {
-  //     char c = content_of_file.get();
-  //     // if (c == '\n' || c == '\r' || c == ' ') {
-  //     // continue;
-  //     // }
-  //     int n = c - '0';
-  //     // if (n == '\n' || n == '\r' || n == ' ') {
-
-  //     // }
-  //     std::cout << "c is " << c << '\n';
-  //     std::cout << "n is " << n << '\n';
-  //     if(n <= 9 && n >=0) {
-  //     i_vec.push_back(n);
-  //     }
-  //     std::cout << "back of vector: " << i_vec.back() << '\n';
-  // }
-  // for (auto i = 0; i < i_vec.size(); i++) {
-  //     std::cout << i_vec[i] << '\n';
-  // }
 }
