@@ -1,3 +1,17 @@
+/*  Dustin Franklin
+    df59@uakron.edu
+    https://github.com/df59/Matrix-Vector-Multiplication-Dual-Core-Parallel/
+
+    Given a rigidly formatted text file as input, this program will multiply an
+    m x n matrix by a n x 1 vector using strictly two processes. Processing of
+    the input file is done serially by both processes independently.
+    Multiplication and addition of even rows of the m x n matrix are done by
+    process 0 and added to the final output. The odd rows are processed by 
+    process 1 and sent back to process 0 to create the final vector output.
+
+*/
+
+
 #include <array>
 #include <cstddef>
 #include <fstream>
